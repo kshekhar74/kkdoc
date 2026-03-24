@@ -1,0 +1,190 @@
+
+body{
+margin:0;
+font-family:Poppins;
+background:#0a0a0a;
+color:white;
+}
+
+.navbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 60px;
+background:black;
+}
+
+.logo{
+font-family:'Playfair Display';
+font-size:26px;
+color:#d4af37;
+}
+
+nav a{
+margin:0 12px;
+text-decoration:none;
+color:white;
+}
+
+.cart{
+font-size:18px;
+}
+
+.hero{
+height:90vh;
+display:flex;
+justify-content:center;
+align-items:center;
+text-align:center;
+background:radial-gradient(circle,#111,#000);
+}
+
+.hero h1{
+font-family:'Playfair Display';
+font-size:70px;
+color:#d4af37;
+}
+
+.hero button{
+padding:14px 40px;
+background:#d4af37;
+border:none;
+cursor:pointer;
+}
+
+.offer{
+background:#111;
+color:#d4af37;
+text-align:center;
+padding:20px;
+font-size:18px;
+}
+
+.products{
+padding:80px 10%;
+text-align:center;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+gap:30px;
+}
+
+.card{
+background:#111;
+padding:20px;
+border-radius:12px;
+transition:0.4s;
+}
+
+.card:hover{
+transform:translateY(-10px);
+box-shadow:0 0 30px #d4af37;
+}
+
+.card img{
+width:100%;
+height:200px;
+}
+
+.card button{
+margin-top:10px;
+padding:10px;
+background:#d4af37;
+border:none;
+}
+
+.collections{
+padding:80px;
+text-align:center;
+background:#111;
+}
+
+.collection-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:20px;
+margin-top:30px;
+}
+
+.collection{
+padding:40px;
+border:1px solid #d4af37;
+}
+
+.gold-price{
+padding:60px;
+text-align:center;
+color:#d4af37;
+}
+
+.gallery{
+padding:80px;
+text-align:center;
+}
+
+.gallery-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:20px;
+}
+
+.gallery img{
+width:100%;
+}
+
+.reviews{
+padding:80px;
+text-align:center;
+}
+
+.review-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:20px;
+}
+
+.review{
+background:#111;
+padding:30px;
+border-radius:10px;
+}
+
+.newsletter{
+padding:80px;
+text-align:center;
+background:#111;
+}
+
+.newsletter input{
+padding:12px;
+width:250px;
+}
+
+.newsletter button{
+padding:12px 20px;
+background:#d4af37;
+border:none;
+}
+
+.contact{
+padding:80px;
+text-align:center;
+}
+
+.whatsapp{
+background:#25D366;
+padding:14px 30px;
+display:inline-block;
+}
+
+footer{
+background:black;
+padding:60px;
+}
+
+.footer-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+}

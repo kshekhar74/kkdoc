@@ -1,94 +1,214 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aaradhya Jewellers | Luxury Gold</title>
 
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #4facfe, #00f2fe);
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+<link rel="stylesheet" href="css/style.css">
 
-        .login-box {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            width: 300px;
-            box-shadow: 0px 4px 10px rgba(0,0,0,0.2);
-        }
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
 
-        .login-box h2 {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .input-box {
-            margin-bottom: 15px;
-        }
-
-        .input-box input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 10px;
-            background: #4facfe;
-            border: none;
-            color: white;
-            font-size: 16px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-
-        .btn:hover {
-            background: #00c6ff;
-        }
-
-        .footer {
-            text-align: center;
-            margin-top: 10px;
-        }
-
-        .footer a {
-            text-decoration: none;
-            color: #4facfe;
-        }
-    </style>
 </head>
 
 <body>
 
-<div class="login-box">
-    <h2>Login</h2>
+<header class="navbar">
+<div class="logo">Aaradhya Jewellers</div>
 
-    <form action="#" method="POST">
-        <div class="input-box">
-            <input type="email" name="email" placeholder="Enter Email" required>
-        </div>
+<nav>
+<a href="#trending">Trending</a>
+<a href="#collections">Collections</a>
+<a href="#gallery">Gallery</a>
+<a href="#reviews">Reviews</a>
+<a href="#contact">Contact</a>
+</nav>
 
-        <div class="input-box">
-            <input type="password" name="password" placeholder="Enter Password" required>
-        </div>
-
-        <button type="submit" class="btn">Login</button>
-    </form>
-
-    <div class="footer">
-        <p>Here is shani? <a href="#">Register</a></p>
-    </div>
+<div class="cart">
+🛒 <span id="cart-count">0</span>
 </div>
+
+</header>
+
+
+<section class="hero">
+
+<div class="hero-inner">
+
+<h1>Luxury Gold Jewellery</h1>
+<p>Royal Designs Crafted With Elegance</p>
+
+<button onclick="scrollToProducts()">Explore Collection</button>
+
+</div>
+
+</section>
+
+
+<section class="offer">
+✨ Festive Gold Offer — Flat 20% Off Selected Designs ✨
+</section>
+
+
+<section id="trending" class="products">
+
+<h2>Trending Jewelry</h2>
+
+<div class="grid">
+
+<div class="card">
+<img src="images/ring.svg">
+<h3>Royal Gold Ring</h3>
+<p>₹25,000</p>
+<button onclick="addCart()">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="images/necklace.svg">
+<h3>Temple Necklace</h3>
+<p>₹1,20,000</p>
+<button onclick="addCart()">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="images/bangles.svg">
+<h3>Gold Bangles</h3>
+<p>₹80,000</p>
+<button onclick="addCart()">Add to Cart</button>
+</div>
+
+<div class="card">
+<img src="images/earrings.svg">
+<h3>Diamond Earrings</h3>
+<p>₹45,000</p>
+<button onclick="addCart()">Add to Cart</button>
+</div>
+
+</div>
+
+</section>
+
+
+<section id="collections" class="collections">
+
+<h2>Featured Collections</h2>
+
+<div class="collection-grid">
+
+<div class="collection">Bridal Gold</div>
+<div class="collection">Temple Jewellery</div>
+<div class="collection">Modern Gold</div>
+<div class="collection">Diamond Fusion</div>
+
+</div>
+
+</section>
+
+
+<section class="gold-price">
+
+<h2>Live Gold Price</h2>
+
+<p>24K Gold: ₹6,800 / gram</p>
+<p>22K Gold: ₹6,200 / gram</p>
+
+</section>
+
+
+<section id="gallery" class="gallery">
+
+<h2>Jewellery Gallery</h2>
+
+<div class="gallery-grid">
+
+<img src="images/ring.svg">
+<img src="images/necklace.svg">
+<img src="images/bangles.svg">
+<img src="images/earrings.svg">
+<img src="images/ring.svg">
+<img src="images/necklace.svg">
+
+</div>
+
+</section>
+
+
+<section id="reviews" class="reviews">
+
+<h2>Customer Reviews</h2>
+
+<div class="review-grid">
+
+<div class="review">
+★★★★★
+<p>Absolutely stunning craftsmanship.</p>
+</div>
+
+<div class="review">
+★★★★★
+<p>Best jewellery showroom experience.</p>
+</div>
+
+<div class="review">
+★★★★★
+<p>Luxury designs and premium finishing.</p>
+</div>
+
+</div>
+
+</section>
+
+
+<section class="newsletter">
+
+<h2>Join Aaradhya Family</h2>
+
+<input placeholder="Enter your email">
+<button>Subscribe</button>
+
+</section>
+
+
+<section id="contact" class="contact">
+
+<h2>Visit Our Store</h2>
+
+<p>Mumbai • Aaradhya Jewellers</p>
+
+<a class="whatsapp">Chat on WhatsApp</a>
+
+</section>
+
+
+<footer>
+
+<div class="footer-grid">
+
+<div>
+<h3>Aaradhya Jewellers</h3>
+Luxury Gold Jewellery
+</div>
+
+<div>
+<h4>Quick Links</h4>
+<p>Shop</p>
+<p>Collections</p>
+<p>Contact</p>
+</div>
+
+<div>
+<h4>Follow Us</h4>
+<p>Instagram</p>
+<p>Facebook</p>
+</div>
+
+</div>
+
+</footer>
+
+
+<script src="js/script.js"></script>
 
 </body>
 </html>
