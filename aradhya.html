@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>Aardhya Jewellers | Exquisite Gold Jewellery</title>
+    <!-- Google Fonts & Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0a0a0a;
+            color: #e0e0e0;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Premium Dark + Gold Theme */
+        :root {
+            --gold-primary: #d4af37;
+            --gold-glow: #ffd966;
+            --dark-bg: #0f0f0f;
+            --card-bg: #141414;
+            --gold-gradient: linear-gradient(135deg, #d4af37, #f5e56b);
+            --shadow-gold: 0 10px 30px rgba(212, 175, 55, 0.2);
+            --transition-smooth: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        /* Sparkle Animation Background */
+        .sparkle-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .sparkle {
+            position: absolute;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.7) 1px, transparent 1px);
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            opacity: 0;
+            animation: sparkleAnim 6s infinite ease-in-out;
+        }
+
+        @keyframes sparkleAnim {
+            0% { opacity: 0; transform: scale(0); }
+            50% { opacity: 0.9; transform: scale(1.2); box-shadow: 0 0 6px gold; }
+            100% { opacity: 0; transform: scale(0); }
+        }
+
+        /* Loader */
+        .loader-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.6s ease;
+        }
+        .loader {
+            width: 60px;
+            height: 60px;
+            border: 4px solid rgba(212, 175, 55, 0.2);
+            border-top: 4px solid var(--gold-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* Scroll Progress */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: var(--gold-gradient);
+            z-index: 10000;
+            transition: width 0.1s ease;
+        }
+
+        /* Reusable sections */
+        section {
+            position: relative;
+            z-index: 2;
+            padding: 70px 5%;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        h1, h2, h3, .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-weight: 700;
+        }
+        h2 {
+            font-size: 2.2rem;
+            text-align: center;
+            margin-bottom: 40px;
+            background: linear-gradient(135deg, #fff, var(--gold-primary));
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: 1px;
+        }
+        @media (min-width: 768px) {
+            h2 { font-size: 2.8rem; margin-bottom: 50px; }
+            section { padding: 90px 5%; }
+        }
+        .gold-text {
+            color: var(--gold-primary);
+        }
+
+        /* Navbar */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(12px);
+            padding: 12px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+        }
+        .logo {
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #fff, var(--gold-primary));
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+        @media (min-width: 768px) {
+            .logo { font-size: 1.8rem; letter-spacing: 2px; }
+        }
+        .nav-links {
+            display: none;
+            width: 100%;
+            flex-direction: column;
+            text-align: center;
+            background: #0f0f0f;
+            padding: 20px 0;
+            margin-top: 15px;
+            gap: 15px;
+            list-style: none;
+        }
+        .nav-links.show {
+            display: flex;
+        }
+        .nav-links a {
+            text-decoration: none;
+            color: #f0f0f0;
+            font-weight: 500;
+            transition: 0.3s;
+            font-size: 1.1rem;
+            padding: 8px 0;
+            display: block;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--gold-primary);
+        }
+        .nav-icons {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        .search-input {
+            background: #1e1e1e;
+            border: 1px solid #333;
+            padding: 8px 12px;
+            border-radius: 40px;
+            color: white;
+            outline: none;
+            transition: 0.3s;
+            width: 140px;
+            font-size: 0.9rem;
+        }
+        .search-input:focus {
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 8px rgba(212,175,55,0.5);
+        }
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+                width: auto;
+                flex-direction: row;
+                background: transparent;
+                padding: 0;
+                margin: 0;
+                gap: 28px;
+            }
+            .nav-links a { padding: 0; font-size: 1rem; }
+            .hamburger { display: none; }
+            .search-input { width: 200px; }
+        }
+        .hamburger {
+            display: block;
+            font-size: 1.6rem;
+            cursor: pointer;
+            color: var(--gold-primary);
+        }
+
+        /* Hero */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80') center/cover fixed;
+            height: 85vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            justify-content: center;
+        }
+        .hero-content h1 {
+            font-size: 2.2rem;
+            letter-spacing: 2px;
+            animation: fadeInUp 1s ease;
+        }
+        .hero-content p {
+            font-size: 1.1rem;
+            margin: 15px 0;
+            animation: fadeInUp 1s 0.2s forwards;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+        @media (min-width: 768px) {
+            .hero-content h1 { font-size: 4rem; }
+            .hero-content p { font-size: 1.5rem; margin: 20px 0; }
+        }
+        .btn-gold {
+            background: var(--gold-gradient);
+            border: none;
+            padding: 12px 28px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+            color: #0a0a0a;
+            box-shadow: 0 5px 15px rgba(212,175,55,0.4);
+        }
+        @media (min-width: 768px) {
+            .btn-gold { padding: 14px 38px; font-size: 1rem; }
+        }
+        .btn-gold:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(212,175,55,0.8);
+        }
+
+        /* Slider & cards */
+        .slider-container {
+            position: relative;
+            overflow: hidden;
+            margin-top: 20px;
+        }
+        .slider-track {
+            display: flex;
+            transition: transform 0.5s ease;
+            gap: 20px;
+        }
+        .slider-card {
+            min-width: calc(100% - 10px);
+            background: var(--card-bg);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: var(--transition-smooth);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+        }
+        @media (min-width: 640px) {
+            .slider-card { min-width: calc(50% - 12px); }
+        }
+        @media (min-width: 1024px) {
+            .slider-card { min-width: calc(33.333% - 17px); }
+        }
+        .slider-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-gold);
+            border-color: gold;
+        }
+        .product-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        @media (min-width: 768px) {
+            .product-img { height: 280px; }
+        }
+        .slider-card:hover .product-img {
+            transform: scale(1.03);
+        }
+        .card-info {
+            padding: 18px;
+            text-align: center;
+        }
+        .slider-nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+        }
+        .slider-nav button {
+            background: #1f1f1f;
+            border: 1px solid var(--gold-primary);
+            color: gold;
+            padding: 8px 18px;
+            border-radius: 40px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        /* Category buttons */
+        .category-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+        .cat-btn {
+            background: #1e1e1e;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            border: 1px solid #333;
+            color: #ddd;
+            font-size: 0.85rem;
+        }
+        @media (min-width: 768px) {
+            .cat-btn { padding: 12px 32px; font-size: 1rem; }
+        }
+        .cat-btn.active, .cat-btn:hover {
+            background: var(--gold-gradient);
+            color: black;
+            border-color: gold;
+            transform: translateY(-2px);
+        }
+
+        /* Product Grid (Ad style) */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        .product-card {
+            background: #111111;
+            border-radius: 28px;
+            overflow: hidden;
+            transition: var(--transition-smooth);
+            border: 1px solid rgba(212, 175, 55, 0.25);
+            position: relative;
+        }
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.5), 0 0 0 1px rgba(212,175,55,0.5);
+        }
+        .product-card img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        .product-card:hover img {
+            transform: scale(1.02);
+        }
+        .product-info {
+            padding: 18px;
+            text-align: center;
+        }
+        .btn-enquire {
+            background: transparent;
+            border: 1px solid var(--gold-primary);
+            color: gold;
+            padding: 10px 16px;
+            border-radius: 40px;
+            margin-top: 12px;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 100%;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        .btn-enquire:hover {
+            background: gold;
+            color: black;
+            box-shadow: 0 0 12px rgba(212,175,55,0.6);
+        }
+
+        /* Offers Banner */
+        .offers-wrapper {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .offer-card {
+            background: linear-gradient(145deg, #1a1a1a, #0c0c0c);
+            border-left: 5px solid gold;
+            padding: 22px;
+            width: 100%;
+            max-width: 280px;
+            text-align: center;
+            border-radius: 35px;
+            animation: pulseGlow 2s infinite;
+        }
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 rgba(212,175,55,0.3);}
+            70% { box-shadow: 0 0 0 12px rgba(212,175,55,0);}
+        }
+
+        /* Testimonials */
+        .testimonial-grid {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .testi-card {
+            background: #0e0e0e;
+            padding: 22px;
+            border-radius: 30px;
+            width: 100%;
+            max-width: 300px;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(212,175,55,0.4);
+        }
+
+        /* Contact */
+        .contact-flex {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: space-between;
+        }
+        .contact-info {
+            flex: 1;
+            min-width: 250px;
+        }
+        .map {
+            flex: 1;
+            min-width: 250px;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+        }
+        iframe {
+            width: 100%;
+            height: 280px;
+            border: 0;
+        }
+
+        /* Footer */
+        footer {
+            background: #030303;
+            padding: 40px 5% 20px;
+            border-top: 1px solid rgba(212,175,55,0.3);
+        }
+        .footer-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 30px;
+        }
+        .social-icons i {
+            font-size: 1.6rem;
+            margin-right: 18px;
+            transition: 0.3s;
+            color: #c0a050;
+        }
+        .social-icons i:hover { transform: translateY(-5px); color: white;}
+
+        /* Back to top & WhatsApp */
+        .back-to-top {
+            position: fixed;
+            bottom: 80px;
+            right: 20px;
+            background: var(--gold-primary);
+            color: black;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            transition: 0.3s;
+            z-index: 99;
+        }
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #25d366;
+            color: white;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            z-index: 99;
+            transition: 0.3s;
+        }
+        @media (min-width: 768px) {
+            .back-to-top { width: 50px; height: 50px; bottom: 80px; right: 25px; }
+            .whatsapp-float { width: 60px; height: 60px; font-size: 2rem; bottom: 25px; right: 25px; }
+        }
+        .whatsapp-float:hover { transform: scale(1.1); background: #128C7E;}
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px);}
+            to { opacity: 1; transform: translateY(0);}
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+
+<div class="loader-wrapper" id="loader">
+    <div class="loader"></div>
+</div>
+<div class="progress-bar" id="progressBar"></div>
+<div class="sparkle-bg" id="sparkleBg"></div>
+
+<nav class="navbar">
+    <div class="logo">AARDHYA JEWELLERS</div>
+    <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#collections">Collections</a></li>
+        <li><a href="#categories">Categories</a></li>
+        <li><a href="#offers">Offers</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-icons">
+        <input type="text" id="searchInput" class="search-input" placeholder="Search designs...">
+    </div>
+</nav>
+
+<main>
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Elegance in Every Sparkle</h1>
+            <p>Timeless Gold • Heirloom Craftsmanship</p>
+            <button class="btn-gold" id="exploreBtn">Discover Our World</button>
+        </div>
+    </section>
+
+    <section id="collections">
+        <div class="container">
+            <h2>✨ Signature Creations ✨</h2>
+            <div class="slider-container">
+                <div class="slider-track" id="sliderTrack"></div>
+            </div>
+            <div class="slider-nav">
+                <button id="prevSlide"><i class="fas fa-chevron-left"></i> Prev</button>
+                <button id="nextSlide">Next <i class="fas fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <section id="categories">
+        <div class="container">
+            <h2>Our Collections</h2>
+            <div class="category-grid" id="categoryFilterContainer">
+                <div class="cat-btn active" data-cat="all">All</div>
+                <div class="cat-btn" data-cat="Rings">Rings</div>
+                <div class="cat-btn" data-cat="Necklaces">Necklaces</div>
+                <div class="cat-btn" data-cat="Bangles">Bangles</div>
+                <div class="cat-btn" data-cat="Earrings">Earrings</div>
+                <div class="cat-btn" data-cat="Bridal Sets">Bridal Sets</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="offers">
+        <div class="container">
+            <h2>Exclusive Benefits</h2>
+            <div class="offers-wrapper">
+                <div class="offer-card"><h3>✨ Limited Period</h3><p>0% Making Charges on Select Gold</p><i class="fas fa-gem gold-text"></i></div>
+                <div class="offer-card"><h3>💎 Complimentary Gifts</h3><p>Free Silver Coin on Every Purchase</p><i class="fas fa-crown gold-text"></i></div>
+                <div class="offer-card"><h3>🎁 Bridal Special</h3><p>Free Earrings with Bridal Set</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="productGallery">
+        <div class="container">
+            <h2>Explore Our Masterpieces</h2>
+            <div class="products-grid" id="productsGrid"></div>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container">
+            <h2>Our Heritage</h2>
+            <div style="max-width:800px; margin:auto; text-align:center; background:#111; padding:30px 20px; border-radius:40px;">
+                <p style="font-size:1rem;">Since generations, Aardhya Jewellers brings the finest BIS hallmarked gold jewellery with intricate craftsmanship. Located in the heart of Jaunpur, we celebrate your precious moments with unmatched purity and elegance.</p>
+                <p style="margin-top:20px;"><i class="fas fa-map-marker-alt gold-text"></i> Bhawaniganj, Babatpur Road, Jaunpur, India</p>
+                <p><i class="fas fa-phone-alt gold-text"></i> <a href="tel:+919170525454" style="color:inherit; text-decoration:none;">+91 9170525454</a> (Vijay Jaiswal)</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="testimonials">
+        <div class="container">
+            <h2>Loved by Customers</h2>
+            <div class="testimonial-grid">
+                <div class="testi-card">⭐️⭐️⭐️⭐️⭐️ <p>"Exquisite designs and pure gold! The staff is very courteous."</p><strong>- Meera S.</strong></div>
+                <div class="testi-card">⭐️⭐️⭐️⭐️⭐️ <p>"Best jewellery shopping experience in Jaunpur. Luxury at fair prices."</p><strong>- Ankit V.</strong></div>
+                <div class="testi-card">⭐️⭐️⭐️⭐️⭐️ <p>"The bridal set is beyond beautiful. Highly recommended!"</p><strong>- Priyanka R.</strong></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2>Visit Our Showroom</h2>
+            <div class="contact-flex">
+                <div class="contact-info">
+                    <p><i class="fas fa-store gold-text"></i> <strong>Aardhya Jewellers</strong><br>Bhawaniganj, Babatpur Road, Jaunpur, Uttar Pradesh - 222001</p>
+                    <p><i class="fas fa-phone-alt gold-text"></i> <a href="tel:+919170525454" style="color:inherit; text-decoration:none;">+91 9170525454</a> (Vijay Jaiswal)</p>
+                    <p><i class="fas fa-envelope gold-text"></i> hello@aardhyajewellers.com</p>
+                    <p><i class="fab fa-whatsapp gold-text"></i> <a href="https://wa.me/919170525454" target="_blank" style="color:inherit; text-decoration:none;">Chat on WhatsApp</a></p>
+                </div>
+                <div class="map">
+                    <iframe src="https://maps.google.com/maps?q=Jaunpur%2C%20Uttar%20Pradesh%2C%20India&t=&z=13&ie=UTF8&iwloc=&output=embed" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="footer-grid">
+        <div><h3>Aardhya Jewellers</h3><p>Timeless elegance, pure gold.</p></div>
+        <div><h4>Quick Links</h4><p>Privacy | Returns | Shipping</p></div>
+        <div><h4>Connect</h4><div class="social-icons"><i class="fab fa-instagram"></i><i class="fab fa-facebook"></i><i class="fab fa-whatsapp"></i></div></div>
+        <div><p>📍 Bhawaniganj, Babatpur Road, Jaunpur<br>📞 +91 9170525454 (Vijay Jaiswal)</p></div>
+    </div>
+    <hr style="border-color:#333; margin:30px 0 20px;">
+    <p style="text-align:center;">© 2025 Aardhya Jewellers – Crafting Heirlooms Since Decades</p>
+</footer>
+
+<div class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></div>
+<a href="https://wa.me/919170525454?text=Hello%2C%20I'm%20interested%20in%20luxury%20gold%20jewellery" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+<script>
+    // Product Data – Visual catalog, no prices
+    const products = [
+        { id: 1, name: "Golden Solitaire Ring", category: "Rings", image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=400&auto=format", desc: "18K gold diamond ring" },
+        { id: 2, name: "Antique Gold Necklace", category: "Necklaces", image: "https://images.unsplash.com/photo-1611591437281-460bfbe1220a?w=400&auto=format", desc: "Temple jewellery style" },
+        { id: 3, name: "Gold Bangle Set", category: "Bangles", image: "https://images.unsplash.com/photo-1617038260897-41a1f14a8ca0?w=400&auto=format", desc: "Set of 4 bangles" },
+        { id: 4, name: "Pearl Drop Earrings", category: "Earrings", image: "https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=400&auto=format", desc: "Gold+pearl" },
+        { id: 5, name: "Royal Bridal Set", category: "Bridal Sets", image: "https://images.unsplash.com/photo-1589674781759-c21c37956a44?w=400&auto=format", desc: "Necklace + earrings + maang tikka" },
+        { id: 6, name: "Rose Gold Ring", category: "Rings", image: "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?w=400&auto=format", desc: "Rose gold with ruby" },
+        { id: 7, name: "Polki Necklace", category: "Necklaces", image: "https://images.unsplash.com/photo-1617038220319-276d3cfab638?w=400&auto=format", desc: "Kundan work" },
+        { id: 8, name: "Gold Cuff Bangles", category: "Bangles", image: "https://images.unsplash.com/photo-1616683693504-4ea7e9f0d956?w=400&auto=format", desc: "Modern design" },
+        { id: 9, name: "Jhumka Earrings", category: "Earrings", image: "https://images.unsplash.com/photo-1589128777073-263566ae5e4d?w=400&auto=format", desc: "Traditional gold jhumka" },
+        { id: 10, name: "Bridal Choker Set", category: "Bridal Sets", image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=400&auto=format", desc: "Heavy ruby set" }
+    ];
+    
+    let activeCategory = "all";
+    let searchTerm = "";
+    let currentSlide = 0;
+    
+    function renderProducts() {
+        const filtered = products.filter(p => (activeCategory === "all" || p.category === activeCategory) && p.name.toLowerCase().includes(searchTerm.toLowerCase()));
+        const grid = document.getElementById("productsGrid");
+        if (!grid) return;
+        grid.innerHTML = filtered.map(p => `
+            <div class="product-card" data-id="${p.id}">
+                <img src="${p.image}" alt="${p.name}" loading="lazy" class="product-img">
+                <div class="product-info">
+                    <h3>${p.name}</h3>
+                    <button class="btn-enquire" data-name="${p.name}">Enquire Now</button>
+                </div>
+            </div>
+        `).join('');
+        document.querySelectorAll('.btn-enquire').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const productName = btn.getAttribute('data-name');
+                window.open(`https://wa.me/919170525454?text=Hello%2C%20I'm%20interested%20in%20${encodeURIComponent(productName)}%20from%20Aardhya%20Jewellers`, '_blank');
+            });
+        });
+    }
+    
+    function renderSlider() {
+        const featured = products.slice(0, 4);
+        const track = document.getElementById("sliderTrack");
+        if (!track) return;
+        track.innerHTML = featured.map(p => `
+            <div class="slider-card">
+                <img src="${p.image}" class="product-img" loading="lazy">
+                <div class="card-info">
+                    <h3>${p.name}</h3>
+                    <button class="btn-enquire" data-name="${p.name}" style="margin-top:8px; width:auto; padding:6px 18px;">Inquire</button>
+                </div>
+            </div>
+        `).join('');
+        updateSliderPosition();
+        document.querySelectorAll('.slider-card .btn-enquire').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const name = btn.getAttribute('data-name');
+                window.open(`https://wa.me/919170525454?text=Hello%2C%20I'm%20interested%20in%20${encodeURIComponent(name)}`, '_blank');
+            });
+        });
+    }
+    
+    function updateSliderPosition() {
+        const track = document.getElementById("sliderTrack");
+        const cards = document.querySelectorAll(".slider-card");
+        if (!cards.length) return;
+        const cardWidth = cards[0].offsetWidth + 20; // gap 20px
+        track.style.transform = `translateX(-${currentSlide * cardWidth}px)`;
+    }
+    
+    let slideInterval;
+    function startAutoSlide() {
+        if(slideInterval) clearInterval(slideInterval);
+        slideInterval = setInterval(() => {
+            const total = document.querySelectorAll(".slider-card").length;
+            if(total) currentSlide = (currentSlide + 1) % total;
+            updateSliderPosition();
+        }, 4500);
+    }
+    
+    // Filters
+    document.getElementById("searchInput").addEventListener("input", (e) => { searchTerm = e.target.value; renderProducts(); });
+    document.querySelectorAll(".cat-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+            document.querySelectorAll(".cat-btn").forEach(b => b.classList.remove("active"));
+            btn.classList.add("active");
+            activeCategory = btn.dataset.cat;
+            renderProducts();
+        });
+    });
+    document.getElementById("exploreBtn").addEventListener("click", () => document.getElementById("productGallery").scrollIntoView({ behavior: "smooth" }));
+    
+    // Scroll progress & back to top
+    window.addEventListener("scroll", () => {
+        const winScroll = document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - window.innerHeight;
+        const scrolled = (winScroll / height) * 100;
+        document.getElementById("progressBar").style.width = scrolled + "%";
+        const backBtn = document.getElementById("backToTop");
+        if (winScroll > 400) backBtn.style.opacity = "1"; else backBtn.style.opacity = "0";
+    });
+    document.getElementById("backToTop").onclick = () => window.scrollTo({ top: 0, behavior: "smooth" });
+    
+    // Hamburger
+    document.getElementById("hamburger").onclick = () => document.getElementById("navLinks").classList.toggle("show");
+    
+    // Slider controls
+    document.getElementById("prevSlide").onclick = () => {
+        const total = document.querySelectorAll(".slider-card").length;
+        if(total) currentSlide = (currentSlide - 1 + total) % total;
+        updateSliderPosition();
+    };
+    document.getElementById("nextSlide").onclick = () => {
+        const total = document.querySelectorAll(".slider-card").length;
+        if(total) currentSlide = (currentSlide + 1) % total;
+        updateSliderPosition();
+    };
+    window.addEventListener("resize", () => updateSliderPosition());
+    
+    // Sparkle background
+    function createSparkles() {
+        const container = document.getElementById("sparkleBg");
+        for(let i=0;i<70;i++) {
+            let span = document.createElement("div");
+            span.classList.add("sparkle");
+            span.style.left = Math.random() * 100 + "%";
+            span.style.top = Math.random() * 100 + "%";
+            span.style.animationDelay = Math.random() * 8 + "s";
+            span.style.animationDuration = 3 + Math.random() * 5 + "s";
+            container.appendChild(span);
+        }
+    }
+    
+    // Loader & init
+    window.addEventListener("load", () => {
+        setTimeout(() => {
+            document.getElementById("loader").style.opacity = "0";
+            setTimeout(() => document.getElementById("loader").style.display = "none", 600);
+        }, 700);
+        renderSlider();
+        renderProducts();
+        startAutoSlide();
+        createSparkles();
+        // Scroll reveal
+        document.querySelectorAll("section, .offer-card, .testi-card").forEach(el => el.classList.add("reveal"));
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if(entry.isIntersecting) entry.target.classList.add("active"); });
+        }, { threshold: 0.15 });
+        document.querySelectorAll(".reveal").forEach(el => observer.observe(el));
+    });
+    
+    // Smooth scroll for nav
+    document.querySelectorAll(".nav-links a").forEach(anchor => {
+        anchor.addEventListener("click", function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute("href").substring(1);
+            const target = document.getElementById(targetId);
+            if(target) target.scrollIntoView({ behavior: "smooth" });
+            if(window.innerWidth<768) document.getElementById("navLinks").classList.remove("show");
+        });
+    });
+</script>
+</body>
+</html>
